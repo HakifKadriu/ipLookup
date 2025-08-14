@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./state/store";
-import { getIpInformation, addRecentIp } from "./state/ip/ipSlice";
+import { getIpInformation, addRecentIp, IpData } from "./state/ip/ipSlice";
 import InformationCard from "./components/informationCard";
 
 export default function Home() {
@@ -152,7 +152,7 @@ export default function Home() {
         </h2>
         <div className="flex flex-wrap justify-center gap-4 p-4 ">
           {recentIps
-            .map((recentIp: any, index: number) => (
+            .map((recentIp: IpData, index: number) => (
               <InformationCard key={index} data={recentIp} />
             ))
             .reverse()}

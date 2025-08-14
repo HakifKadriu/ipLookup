@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AppDispatch } from "../state/store";
 import { useDispatch } from "react-redux";
 import { addRecentIp } from "../state/ip/ipSlice";
+import { IpData } from "../state/ip/ipSlice";
 
 export default function Navbar() {
   const location = usePathname();
@@ -13,7 +14,7 @@ export default function Navbar() {
 
   useEffect(() => {
     initializeLocalStorage();
-  }, []);
+  });
 
   function initializeLocalStorage() {
     // Check if recentIps exists in localStorage, if not, initialize it
@@ -23,12 +24,11 @@ export default function Navbar() {
 
     const recentIps = localStorage.getItem("recentIps");
     if (recentIps) {
-      const ips = JSON.parse(recentIps);
-      ips.forEach((ip: any) => {
+      const ips: IpData[] = JSON.parse(recentIps);
+      ips.forEach((ip) => {
         dispatch(addRecentIp(ip));
       });
     }
-
   }
 
   return (

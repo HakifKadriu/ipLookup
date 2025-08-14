@@ -35,9 +35,10 @@ export const getIpInformation = createAsyncThunk<IpData, string>(
         return rejectWithValue(errorMsg);
       }
       return (await res.json()) as IpData;
-    } catch (error: any) {
+    } catch (error) {
       const errorMsg =
-        error?.message || "Network error: Failed to fetch IP information";
+        (error as Error).message ||
+        "Network error: Failed to fetch IP information";
       if (process.env.NODE_ENV === "development") {
         console.error(errorMsg);
       }
@@ -83,5 +84,6 @@ export const ipSlice = createSlice({
   },
 });
 
+export type { IpData };
 export const { addRecentIp } = ipSlice.actions;
 export default ipSlice.reducer;
